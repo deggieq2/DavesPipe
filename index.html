@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Daves Pipes</title>
+    <link rel="stylesheet" href="style.css" />
+    <script>
+      // Optional: set to your Cloudflare Worker endpoint, e.g. "https://example.workers.dev/highscore"
+      window.FLAPPY_DAVE_GLOBAL_SCORE_URL = "";
+      // Optional: set to a provided image URL later.
+      window.FLAPPY_DAVE_PLAYER_IMAGE_URL = "";
+    </script>
+  </head>
+  <body>
+    <main class="frame">
+      <header class="title-bar">
+        <img class="logo" src="assets/dave.png" alt="Dave logo" />
+        <h1>Daves Pipes</h1>
+      </header>
+      <section class="board">
+        <canvas id="game" width="480" height="720" aria-label="Flappy Dave"></canvas>
+        <aside class="leaderboard">
+          <h2>Global Top 10</h2>
+          <ol id="leaderboard-list"></ol>
+          <p class="leaderboard-note">Scores update after each run.</p>
+        </aside>
+      </section>
+      <button id="start-btn" class="sr-only">Start</button>
+    </main>
+    <script src="game.js"></script>
+  </body>
+</html>
