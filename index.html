@@ -22,10 +22,18 @@
         <canvas id="game" width="480" height="720" aria-label="Flappy Dave"></canvas>
         <aside class="leaderboard">
           <h2>Global Top 10</h2>
+          <label class="name-field" for="leaderboard-name">Name</label>
+          <input id="leaderboard-name" type="text" maxlength="16" placeholder="Dave" autocomplete="nickname" />
           <ol id="leaderboard-list"></ol>
           <p class="leaderboard-note">Scores update after each run.</p>
         </aside>
       </section>
+      <p class="other-games">
+        More Dave games:
+        <a href="https://davesnake.deggie.tech" target="_blank" rel="noopener noreferrer">davesnake.deggie.tech</a>
+        and
+        <a href="https://dangerdave.deggie.tech" target="_blank" rel="noopener noreferrer">dangerdave.deggie.tech</a>
+      </p>
       <button id="start-btn" class="sr-only">Start</button>
     </main>
     <script src="game.js"></script>

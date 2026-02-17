@@ -25,6 +25,7 @@
     lastSpawn: 0,
     score: 0,
     best: 0,
+    playerName: "Dave",
     globalBest: null,
     globalTop10: [],
     globalSubmitPending: false,
@@ -45,19 +46,13 @@
   const playerImage = new Image();
   let playerImageReady = false;
 
-  const logoImage = new Image();
-  let logoImageReady = false;
-  logoImage.onload = () => {
-    logoImageReady = true;
-  };
-  logoImage.src = "assets/dave.png";
-
   playerImage.onload = () => {
     playerImageReady = true;
   };
   playerImage.src = PLAYER_IMAGE_URL;
 
   const leaderboardList = document.getElementById("leaderboard-list");
+  const leaderboardNameInput = document.getElementById("leaderboard-name");
 
   function resizeCanvas() {
     canvas.width = Math.round(BASE_WIDTH * DPR);
@@ -76,12 +71,33 @@
     localStorage.setItem("flappy-dave-best", String(state.best));
   }
 
+  function sanitizePlayerName(value) {
+    const compact = String(value || "").replace(/\s+/g, " ").trim().slice(0, 16);
+    return compact || "Dave";
+  }
+
+  function loadPlayerName() {
+    const stored = localStorage.getItem("flappy-dave-player-name");
+    state.playerName = sanitizePlayerName(stored);
+    if (leaderboardNameInput) {
+      leaderboardNameInput.value = state.playerName;
+    }
+  }
+
+  function savePlayerName(value) {
+    state.playerName = sanitizePlayerName(value);
+    localStorage.setItem("flappy-dave-player-name", state.playerName);
+    if (leaderboardNameInput) {
+      leaderboardNameInput.value = state.playerName;
+    }
+  }
+
   function normalizeTop10(list) {
     return list
       .map((entry) => {
         if (typeof entry === "number") return { score: entry, name: "Dave" };
         if (!entry || typeof entry.score !== "number") return null;
-        return { score: entry.score, name: entry.name || "Dave" };
+        return { score: entry.score, name: sanitizePlayerName(entry.name) };
       })
       .filter(Boolean)
       .sort((a, b) => b.score - a.score)
@@ -127,7 +143,7 @@
       await fetch(GLOBAL_SCORE_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ score }),
+        body: JSON.stringify({ score, name: sanitizePlayerName(state.playerName) }),
       });
       await fetchGlobalLeaderboard();
     } catch (err) {
@@ -452,6 +468,17 @@
   function bindEvents() {
     canvas.addEventListener("pointerdown", handleInput);
     startBtn.addEventListener("click", handleInput);
+    if (leaderboardNameInput) {
+      leaderboardNameInput.addEventListener("input", () => {
+        state.playerName = sanitizePlayerName(leaderboardNameInput.value);
+      });
+      leaderboardNameInput.addEventListener("change", () => {
+        savePlayerName(leaderboardNameInput.value);
+      });
+      leaderboardNameInput.addEventListener("blur", () => {
+        savePlayerName(leaderboardNameInput.value);
+      });
+    }
 
     window.addEventListener("keydown", (event) => {
       if (event.code === "Space") {
@@ -511,6 +538,7 @@
 
   resizeCanvas();
   loadLocalBest();
+  loadPlayerName();
   renderLeaderboard();
   fetchGlobalLeaderboard();
   bindEvents();

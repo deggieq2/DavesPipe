@@ -10,6 +10,7 @@ Original prompt: I want to build a flappy bird clone using an image which I can 
 - Added HTML title + logo above the canvas; removed in-canvas title/brand.
 - Added a sidebar leaderboard UI and wired global top 10 fetch/submit.
 - Added Cloudflare Worker (KV-backed) in `worker/` and a `CNAME` for GitHub Pages.
+- Added player name input for leaderboard submissions and bottom links to Dave games.
 
 TODO:
 - Plug in Cloudflare Worker URL and confirm response JSON shape.

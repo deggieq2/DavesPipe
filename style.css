@@ -74,6 +74,32 @@ body {
   text-align: center;
 }
 
+.name-field {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #4b2e1b;
+  margin-bottom: 4px;
+}
+
+#leaderboard-name {
+  width: 100%;
+  height: 36px;
+  border: 2px solid #9f7249;
+  border-radius: 10px;
+  background: #fff8ef;
+  color: #2b1c12;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 0 10px;
+  margin-bottom: 12px;
+}
+
+#leaderboard-name:focus {
+  outline: 2px solid #2f9a90;
+  outline-offset: 1px;
+}
+
 .leaderboard ol {
   list-style: decimal;
   padding-left: 22px;
@@ -88,6 +114,24 @@ body {
   font-size: 12px;
   color: #5c3b26;
   text-align: center;
+}
+
+.other-games {
+  text-align: center;
+  color: #4b2e1b;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 2px 8px 8px;
+}
+
+.other-games a {
+  color: #0e5c70;
+  text-decoration: none;
+}
+
+.other-games a:hover,
+.other-games a:focus-visible {
+  text-decoration: underline;
 }
 
 canvas {
